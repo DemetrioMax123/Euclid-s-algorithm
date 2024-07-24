@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.5rem;
+        font-weight: bolder;
+        display: flex;
+        flex-direction: row;
+        background-image: linear-gradient(to bottom right, #f12711, #f5af19);
+      }
+      h1 {
+        margin-left: 5vw;
+      }
+      input {
+        height: 3vw;
+        width: 12vw;
+        border: none;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        -webkit-animation: none;
+        border-radius: 0.8vw;
+        padding-left: 1vw;
+        font-size: 1rem;
+        margin-left: 6vw;
+      }
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* For Firefox */
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+      input[type="number"] {
+        outline: none;
+      }
+      .resultBtn {
+        color: wheat;
+        background-color: blueviolet;
+        border: none;
+        border-radius: 1vw;
+        width: 6vw;
+        height: 3vw;
+        margin-top: 1vw;
+        font-weight: bolder;
+        cursor: pointer;
+      }
+      .resultBtn:hover {
+        background-color: rgb(97, 39, 151);
+      }
+      .resultBtn:active {
+        width: 5.8vw;
+        height: 2.8vw;
+      }
+      #spanResult {
+        font-size: 3rem;
+        margin-left: 14vw;
+      }
+      .mainContainer {
+        width: 80vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .catContainer {
+        width: 50%;
+      }
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mainContainer">
+      <h1>Let's find the GCD of a fraction using Euclid's algorithmss</h1>
+      <div>
+        <p>Write down the Numerator</p>
+        <input type="number" placeholder="Numerator" id="numeratorInput" />
+        <p>Write down the Denominator</p>
+        <input type="number" placeholder="Denominator" id="DenominatorInput" />
+      </div>
+      <button class="resultBtn" id="resultB">Get result</button>
+      <p class="result">
+        This is the GCD of those numbers:<br />
+        <span id="spanResult"></span>
+      </p>
+    </div>
+    <div class="catContainer">
+      <img src="src/cat.jpg" alt="Giant cat" />
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let numerator = document.getElementById("numeratorInput");
+        let denominator = document.getElementById("DenominatorInput");
+        let spanResult = document.getElementById("spanResult");
+        let resultB = document.getElementById("resultB");
+
+        function findGCD(a, b) {
+          if (!a || !b || isNaN(a) || isNaN(b) || b === 0) {
+            return console.log("Introduced data is not valid");
+          }
+
+          a = Math.abs(a);
+          b = Math.abs(b);
+
+          while (b !== 0) {
+            const temp = b;
+            b = a % b;
+            a = temp;
+          }
+          return a;
+        }
+        ///=====================================================================
+        resultB.addEventListener("click", function () {
+          let numeratorValues = parseInt(numerator.value);
+          let denominatorValues = parseInt(denominator.value);
+
+          let finalResult = findGCD(numeratorValues, denominatorValues);
+
+          spanResult.textContent = finalResult;
+        });
+        //////////////////////////////////////////////////////////////////////////////
+      });
+    </script>
+  </body>
+</html>
